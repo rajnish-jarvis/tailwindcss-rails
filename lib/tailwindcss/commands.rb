@@ -35,7 +35,7 @@ module Tailwindcss
             MESSAGE
           end
         else
-          if Tailwindcss::Upstream::NATIVE_PLATFORMS.keys.none? { |p| Gem::Platform.match_gem?(Gem::Platform.new(p), GEM_NAME) }
+          if Tailwindcss::Upstream::NATIVE_PLATFORMS.keys.none? { |p| Gem::Platform.match(Gem::Platform.new(p)) }
             raise UnsupportedPlatformException, <<~MESSAGE
               tailwindcss-rails does not support the #{platform} platform
               Please install tailwindcss following instructions at https://tailwindcss.com/docs/installation
@@ -43,7 +43,7 @@ module Tailwindcss
           end
 
           exe_file = Dir.glob(File.expand_path(File.join(exe_path, "*", "tailwindcss"))).find do |f|
-            Gem::Platform.match_gem?(Gem::Platform.new(File.basename(File.dirname(f))), GEM_NAME)
+            Gem::Platform.match(Gem::Platform.new(File.basename(File.dirname(f))))
           end
         end
 
